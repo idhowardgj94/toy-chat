@@ -9,18 +9,17 @@
         org.clojure/data.json {:mvn/version "2.4.0"}
         ring/ring-json {:mvn/version "0.5.1"}}
  :aliases
- {:dev {:extra-deps {io.github.stuarthalloway/reflector
-                     {:git/url "https://github.com/stuarthalloway/reflector"
-                      :sha "93a0c19b4526c1180959e940202928d35e5c3cef"}
-                     djblue/portal {:mvn/version "RELEASE"}
-                     ring/ring-devel {:mvn/version "1.9.5"}
-                     org.clojure/tools.deps.alpha ; add-lib3 branch
-                     {:git/url "https://github.com/clojure/tools.deps.alpha"
-                      :sha "83a477b305839c697666401508c395cfed29506a"}}}
+ {:watch-dev {:extra-deps {io.github.stuarthalloway/reflector
+                           {:git/url "https://github.com/stuarthalloway/reflector"
+                            :sha "93a0c19b4526c1180959e940202928d35e5c3cef"}
+                           djblue/portal {:mvn/version "RELEASE"}
+                           ring/ring-devel {:mvn/version "1.9.5"}
+                           org.clojure/tools.deps.alpha ; add-lib3 branch
+                           {:git/url "https://github.com/clojure/tools.deps.alpha"
+                            :sha "83a477b305839c697666401508c395cfed29506a"}}
+              :ns-default dev.main
+              :exec-fn start-server-dev}
   :run-m {:main-opts ["-m" "com.chatapp"]}
-  :run-x {:ns-default com.chatapp
-          :exec-fn greet
-          :exec-args {:name "Clojure"}}
   :build {:deps {io.github.seancorfield/build-clj
                  {:git/tag "v0.6.3" :git/sha "9b8e09b"
                   ;; since we're building an app uberjar, we do not
@@ -36,5 +35,4 @@
 #_(comment
     (add-libs '{ring/ring-json {:mvn/version "0.5.1"}})
     (add-libs '{hiccup/hiccup {:mvn/version "2.0.0-alpha2"}})
-    (add-libs '{ring/ring-devel {:mvn/version "1.9.5"}})
-    ,)
+    (add-libs '{ring/ring-devel {:mvn/version "1.9.5"}}))

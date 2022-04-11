@@ -8,25 +8,25 @@
                        [ring.middleware.reload :refer [wrap-reload]]))
 
 (defonce p (atom nil))
+
+(defn start-server-dev
+  "start server, and add reload for dev"
+  [& _]
+  (reset! server-state
+          (run-jetty (-> (wrap-defaults #'app-routes site-defaults)
+                         wrap-json-body
+                         wrap-json-response
+                         wrap-reload)
+                     {:port 8080 :join? false})))
+
 (defn start
   []
   (reset! p (p/open))
   (add-tap #'p/submit)
+  (start-server-dev)
   (print "[DEBUG] start portal..."))
 
-(defn start-server-dev
-  "start server, and add reload for dev"
-  []
-  [wrap-reload]
-   (when (not (nil? wrap-reload))
-     (reset! server-state
-             (run-jetty (-> (wrap-defaults #'app-routes site-defaults)
-                            wrap-json-body
-                            wrap-json-response
-                            wrap-reload)
-                        {:port 8080 :join? false}))))
-
-
+(start)
 #_(start-server-dev)
 #_(stop-server)
 
