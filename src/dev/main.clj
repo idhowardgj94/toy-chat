@@ -1,6 +1,6 @@
 (ns dev.main (:require [com.chatapp :refer :all]
                        [portal.api :as p]
-                       [ring.adapter.jetty :refer [run-jetty]]
+                       [org.httpkit.server :refer [run-server]]
                        [ring.middleware.defaults :refer [site-defaults
                                                          wrap-defaults]]
                        [ring.middleware.json :refer [wrap-json-body
@@ -13,11 +13,15 @@
   "start server, and add reload for dev"
   [& _]
   (reset! server-state
-          (run-jetty (-> (wrap-defaults #'app-routes site-defaults)
+          (run-server (-> (wrap-defaults #'app-routes  site-defaults )
                          wrap-json-body
                          wrap-json-response
-                         wrap-reload)
-                     {:port 8080 :join? false})))
+                         wrap-reload) {:port 8080})))
+
+(defn stop-server-dev
+  "stop dev server"
+  []
+  (stop-server))
 
 (defn start
   []
@@ -28,7 +32,7 @@
 
 (start)
 #_(start-server-dev)
-#_(stop-server)
+#_(stop-server-dev)
 
 
 #_(require '[clojure.tools.deps.alpha.repl :refer [add-libs]])

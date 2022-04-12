@@ -7,7 +7,9 @@
         ring/ring-jetty-adapter {:mvn/version "1.9.5"}
         ring/ring-defaults {:mvn/version "0.3.3"}
         org.clojure/data.json {:mvn/version "2.4.0"}
-        ring/ring-json {:mvn/version "0.5.1"}}
+        ring/ring-json {:mvn/version "0.5.1"}
+        http-kit/http-kit {:mvn/version "2.5.3"}
+        com.taoensso/sente {:mvn/version "1.16.2"}}
  :aliases
  {:watch-dev {:extra-deps {io.github.stuarthalloway/reflector
                            {:git/url "https://github.com/stuarthalloway/reflector"
@@ -33,6 +35,8 @@
 
 #_(require '[clojure.tools.deps.alpha.repl :refer [add-libs]])
 #_(comment
+    (add-libs '{com.taoensso/sente {:mvn/version "1.16.2"}})
     (add-libs '{ring/ring-json {:mvn/version "0.5.1"}})
     (add-libs '{hiccup/hiccup {:mvn/version "2.0.0-alpha2"}})
+    (add-libs '{http-kit/http-kit {:mvn/version "2.5.3"}})
     (add-libs '{ring/ring-devel {:mvn/version "1.9.5"}}))

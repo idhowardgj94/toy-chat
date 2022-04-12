@@ -2,10 +2,11 @@
                  [compojure.core :refer :all]
                  [compojure.route :as route]
                  [ring.middleware.defaults :refer :all]
-                 [ring.adapter.jetty :refer :all]
                  [ring.util.response :as res]
-                 [clojure.string :refer [upper-case]]
-                 [ring.middleware.json :refer [wrap-json-response wrap-json-body]]))
+                 [taoensso.sente :as sente]
+                 [org.httpkit.server :refer [run-server]]
+                 [ring.middleware.json :refer [wrap-json-response wrap-json-body]])
+    (:use [org.httpkit.server]))
 
 #_(require '[clojure.repl :as repl])
 (defonce server-state (atom nil))
@@ -27,10 +28,9 @@
 (defn start-server
   ([]
    reset! server-state
-           (run-jetty (-> (wrap-defaults #'app-routes site-defaults)
-                          wrap-json-body
-                          wrap-json-response)
-                      {:port 8080 :join? false})))
+           (run-server (-> (wrap-defaults #'app-routes site-defaults)
+                           wrap-json-body
+                           wrap-json-response) {:port 8080})))
 
 (defn -main
   "I don't do a whole lot ... yet."
