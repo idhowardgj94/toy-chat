@@ -1,0 +1,11 @@
+;; shadow-cljs configuration
+{:deps true
+ :nrepl {:port 8702}
+ :dev-http {3000 ["static" "."]}
+ :builds
+ {:app {:target :browser
+        ;; :module-loader true ;; inject `shadow.loader` utility
+        :js-options {:ignore-asset-requires true} ;; about webpack style css
+        :output-dir "./static/js"
+        :asset-path "./static/js"
+        :modules {:main {:init-fn front.main/start}}}}}

@@ -1,0 +1,25 @@
+{
+    "name": "acme-app",
+    "version": "0.0.1",
+    "private": true,
+    "devDependencies": {
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.4.12",
+        "postcss-cli": "^9.1.0",
+        "shadow-cljs": "2.18.0",
+        "tailwindcss": "^3.0.23"
+    },
+    "scripts": {
+        "start": "run-p *:watch",
+        "cljs:watch": "clj -M:watch-dev:shadow-cljs watch app",
+        "postcss:build": "cross-env TAILWIND_MODE=build postcss src/front/css/main.css -o ./static/css/main.css --verbose",
+        "postcss:watch": "cross-env TAILWIND_MODE=watch postcss src/front/css/main.css -o ./static/css/main.css --verbose -w",
+        "postcss:release": "cross-env NODE_ENV=production postcss src/front/css/main.css -o ./static/css/main.css --verbose"
+    },
+    "dependencies": {
+        "autoprefixer": "^10.4.4",
+        "cross-env": "^7.0.3",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+    }
+}

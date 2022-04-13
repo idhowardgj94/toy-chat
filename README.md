@@ -2,6 +2,16 @@
 
 FIXME: my new application.
 
+## dev
+
+quick start:
+
+```shell
+ clj -M:watch-dev:shadow-cljs watch app
+
+ will start backend and front end
+```
+
 ## Installation
 
 Download from https://github.com/com/com.chatapp

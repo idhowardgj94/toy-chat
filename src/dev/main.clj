@@ -1,5 +1,6 @@
 (ns dev.main (:require [com.chatapp :refer :all]
                        [portal.api :as p]
+                       [taoensso.timbre :as timbre]
                        [org.httpkit.server :refer [run-server]]
                        [ring.middleware.defaults :refer [site-defaults
                                                          wrap-defaults]]
@@ -28,11 +29,10 @@
   (reset! p (p/open))
   (add-tap #'p/submit)
   (start-server-dev)
-  (print "[DEBUG] start portal..."))
+  (timbre/info "start portal..."))
 
-(start)
+#_(start)
 #_(start-server-dev)
 #_(stop-server-dev)
-
 
 #_(require '[clojure.tools.deps.alpha.repl :refer [add-libs]])
