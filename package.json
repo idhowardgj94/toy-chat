@@ -11,7 +11,8 @@
     },
     "scripts": {
         "start": "run-p *:watch",
-        "cljs:watch": "clj -M:watch-dev:shadow-cljs watch app",
+        "cljs:watch": "clj -M:shadow-cljs watch app",
+        "clj:watch": "clj -X:watch-dev",
         "postcss:build": "cross-env TAILWIND_MODE=build postcss src/front/css/main.css -o ./static/css/main.css --verbose",
         "postcss:watch": "cross-env TAILWIND_MODE=watch postcss src/front/css/main.css -o ./static/css/main.css --verbose -w",
         "postcss:release": "cross-env NODE_ENV=production postcss src/front/css/main.css -o ./static/css/main.css --verbose"

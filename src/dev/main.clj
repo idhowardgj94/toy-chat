@@ -1,4 +1,4 @@
-(ns dev.main (:require [com.chatapp :refer :all]
+(ns dev.main (:require [com.chatapp :refer :all :exclude [-main]]
                        [portal.api :as p]
                        [taoensso.timbre :as timbre]
                        [org.httpkit.server :refer [run-server]]
@@ -31,7 +31,6 @@
   (start-server-dev)
   (timbre/info "start portal..."))
 
-#_(start)
 #_(start-server-dev)
 #_(stop-server-dev)
 
