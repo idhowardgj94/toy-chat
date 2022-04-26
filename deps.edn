@@ -1,5 +1,5 @@
 
-{:paths ["src" "resources"]
+{:paths ["src" "resources" "static"]
  :deps {org.clojure/clojure {:mvn/version "1.10.3"}
         stylefruits/gniazdo {:mvn/version "1.2.0"}
         ring/ring-core {:mvn/version "1.9.5"}
@@ -25,7 +25,15 @@
                             :sha "83a477b305839c697666401508c395cfed29506a"}}
               :ns-default dev.main
               :exec-fn start-server-dev}
-  :shadow-cljs {:extra-deps {thheller/shadow-cljs {:mvn/version "2.18.0"}}
+  :shadow-cljs {:extra-deps {thheller/shadow-cljs {:mvn/version "2.18.0"}
+                             io.github.stuarthalloway/reflector
+                             {:git/url "https://github.com/stuarthalloway/reflector"
+                              :sha "93a0c19b4526c1180959e940202928d35e5c3cef"}
+                             djblue/portal {:mvn/version "RELEASE"}
+                             ring/ring-devel {:mvn/version "1.9.5"}
+                             org.clojure/tools.deps.alpha ; add-lib3 branch
+                             {:git/url "https://github.com/clojure/tools.deps.alpha"
+                              :sha "83a477b305839c697666401508c395cfed29506a"}}
                 :main-opts ["-m" "shadow.cljs.devtools.cli"]}
   :run-m {:main-opts ["-m" "com.chatapp"]}
   :build {:deps {io.github.seancorfield/build-clj
@@ -41,6 +49,7 @@
 
 #_(require '[clojure.tools.deps.alpha.repl :refer [add-libs]])
 #_(comment
+    (add-libs '{hiccup/hiccup {:num/version "1.0.5"}})
     (add-libs '{rum/rum {:mvn/version "0.12.9"}})
     (add-libs '{com.taoensso/timbre {:mvn/version "5.2.1"}})
     (add-libs '{com.taoensso/sente {:mvn/version "1.16.2"}})

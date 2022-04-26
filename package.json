@@ -10,9 +10,10 @@
         "tailwindcss": "^3.0.23"
     },
     "scripts": {
-        "start": "run-p *:watch",
+        "start": "run-p cljs:watch",
         "cljs:watch": "clj -M:shadow-cljs watch app",
-        "clj:watch": "clj -X:watch-dev",
+        "clj:watch": "clj -M:watch-dev",
+        "clj-nrepl:watch": "clj -M:nREPL",
         "postcss:build": "cross-env TAILWIND_MODE=build postcss src/front/css/main.css -o ./static/css/main.css --verbose",
         "postcss:watch": "cross-env TAILWIND_MODE=watch postcss src/front/css/main.css -o ./static/css/main.css --verbose -w",
         "postcss:release": "cross-env NODE_ENV=production postcss src/front/css/main.css -o ./static/css/main.css --verbose"

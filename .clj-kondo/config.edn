@@ -3,4 +3,5 @@
            spade.core/defclass clojure.core/defn
            spade.core/defattrs clojure.core/defn
            spade.core/defkeyframes clojure.core/defn}
+ 
  :linters {:unresolved-symbol {:exclude [(rum.core/defcs)]}}}

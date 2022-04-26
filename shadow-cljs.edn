@@ -1,8 +1,8 @@
 ;; shadow-cljs configuration
 {:deps true
  :nrepl {:port 8702}
- :dev-http {3000 {:root "static"
-                  :port 8080}}
+;;  :dev-http {3000 {:root "static"
+;;                   :port 8080}}
  :builds
  {:app {:target :browser
         ;; :module-loader true ;; inject `shadow.loader` utility

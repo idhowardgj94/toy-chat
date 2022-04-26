@@ -9,7 +9,8 @@
                  [ring.util.response :as res]
                  [taoensso.sente :as sente]
                  [taoensso.sente.server-adapters.http-kit      :refer (get-sch-adapter)]
-                 [taoensso.timbre :as timbre])
+                 [taoensso.timbre :as timbre]
+                 [rum.core :as rum])
     (:use [org.httpkit.server]))
 
 ;; try sente
@@ -70,10 +71,26 @@
   (-> (res/response {:status "hello, world"})
       content-type-json))
 
+(defn head
+  []
+  [:head
+   [:meta {:http-equiv "content-type" :content "text/html;charset=UTF-8"}]
+   [:title "rum test"]])
+
+(defn page
+  []
+  [:html (head)
+   [:body [:div#root "hello, howard"]]]
+  )
+(defn test-rum
+  [_]
+  (rum/render-static-markup (page)))
+
 (defroutes app-routes
   (GET "/" [] index)
   (GET  "/chsk" req (ring-ajax-get-or-ws-handshake req))
   (POST "/chsk" req (ring-ajax-post                req))
+  (GET "/testRum" [] test-rum)
   (route/not-found "Not Found"))
 
 (defn start-server
