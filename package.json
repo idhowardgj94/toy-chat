@@ -10,7 +10,7 @@
         "tailwindcss": "^3.0.23"
     },
     "scripts": {
-        "start": "run-p cljs:watch",
+        "start": "run-p cljs:watch postcss:watch",
         "cljs:watch": "clj -M:shadow-cljs watch app",
         "clj:watch": "clj -M:watch-dev",
         "clj-nrepl:watch": "clj -M:nREPL",
