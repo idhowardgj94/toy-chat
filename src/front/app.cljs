@@ -1,42 +1,33 @@
 (ns front.app (:require [rum.core :as rum]
-                        [cljs.core.async :as async :refer (<! >! put! chan)]
-                        [taoensso.sente  :as sente :refer (cb-success?)] 
-                        [taoensso.encore :as encore :refer-macros (have have?)]
+                        [front.chsk :refer [start!]]
                         [taoensso.timbre :as timbre :refer-macros (tracef debugf infof warnf errorf)])); <--- Add this))
 
 
-(def output-el (.getElementById js/document "output"))
+;; (def output-el (.getElementById js/document "output"))
 
-(defn ->output! [fmt & args]
-  (let [msg (apply encore/format fmt args)]
-    (timbre/debug msg)
-    (aset output-el "value" (str "• " (.-value output-el) "\n" msg))
-    (aset output-el "scrollTop" (.-scrollHeight output-el))))
+(def counter (atom 1))
 
-(def ?csrf-token
-  (when-let [el (.getElementById js/document "sente-csrf-token")]
-    (.getAttribute el "data-csrf-token")))
+;; basic event handler
+;; and how to reactive in rum.
+(defn button-onclick-handler
+  [_]
+  (.log js/console "hello, handler")
+  (swap! counter inc))
 
-(let [{:keys [chsk ch-recv send-fn state]}
-      (sente/make-channel-socket-client!
-       "/chsk" ; Note the same path as before
-       ?csrf-token
-       {:type :auto ; e/o #{:auto :ajax :ws}
-        })]
+(defn did-mount-app
+  []
+  (.log js/console "app mount! will start chsk router....")
+  (start!)
+  (.log js/console "start chsk..."))
 
-  (def chsk       chsk)
-  (def ch-chsk    ch-recv) ; ChannelSocket's receive channel
-  (def chsk-send! send-fn) ; ChannelSocket's send API fn
-  (def chsk-state state)   ; Watchable, read-only atom
+(rum/defc app < rum/reactive
+  {:did-mount did-mount-app}
+  []
+  [:div [:h1.text-xl "This is a Sente test."]
+   [:p.text-red "we will recieved message from backend and post here"]
+   [:ul#message-area]
+   [:p.text-blue "this is the atom count: " (rum/react counter)]
+   [:button#add-count.bg-blue-500.hover:bg-blue-700.text-white.font-bold.py-2.px-4.rounded 
+    {:on-click button-onclick-handler} "click me to add count"]]
   )
 
-(when-let [target-el (.getElementById js/document "btn2")]
-  (.addEventListener target-el "click"
-                     (fn [ev]
-                       (->output! "Button 2 was clicked (will receive reply from server)")
-                       (chsk-send! [:example/button2 {:had-a-callback? "indeed"}] 5000
-                                   (fn [cb-reply] (->output! "Callback reply: %s" cb-reply))))))
-
-(rum/defc app
-  []
-  [:div.text-lg "hello, world"])

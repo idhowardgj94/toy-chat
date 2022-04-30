@@ -1,4 +1,5 @@
 (ns dev.main (:require [com.chatapp :refer :all :exclude [-main]]
+                       [taoensso.timbre.appenders.core :as appenders]
                        [com.route :refer [app-routes]]
                        [portal.api :as p]
                        [taoensso.timbre :as timbre]
@@ -15,10 +16,10 @@
   "start server, and add reload for dev"
   [& _]
   (reset! server-state
-          (run-server (-> (wrap-defaults #'app-routes  (assoc-in site-defaults [:static :resources] ["js" "css"]) )
-                         wrap-json-body
-                         wrap-json-response
-                         wrap-reload) {:port 8080})))
+          (run-server (-> (wrap-defaults #'app-routes  (assoc-in site-defaults [:static :resources] ["js" "css"]))
+                          wrap-json-body
+                          wrap-json-response
+                          wrap-reload) {:port 8080})))
 
 ;; TODO: stop server-dev not woorking
 (defn stop-server-dev
@@ -31,11 +32,12 @@
   (reset! p (p/open))
   (add-tap #'p/submit)
   (start-server-dev)
+  (timbre/merge-config!
+   {:appenders {:spit (appenders/spit-appender {:fname "logs/debug-logs.txt"})}})
   (timbre/info "start portal..."))
 
-#_(start-server-dev)
-#_(stop-server-dev)
-
+(start)
+(stop-server-dev)
 #_(require '[clojure.tools.deps.alpha.repl :refer [add-libs]])
 
 (comment
@@ -45,4 +47,4 @@
   (assoc site-defaults :static {:resources "oeoeo"})
   (assoc-in site-defaults [:static :resources] ["js" "css"])
   (io/resource "js/main.js")
-  ,)
+  (print "hello"))
