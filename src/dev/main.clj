@@ -21,7 +21,6 @@
                           wrap-json-response
                           wrap-reload) {:port 8080})))
 
-;; TODO: stop server-dev not woorking
 (defn stop-server-dev
   "stop dev server"
   []
@@ -29,12 +28,12 @@
 
 (defn start
   []
-  (reset! p (p/open))
-  (add-tap #'p/submit)
-  (start-server-dev)
+  ;; (reset! p (p/open))
+  ;; (add-tap #'p/submit)
   (timbre/merge-config!
    {:appenders {:spit (appenders/spit-appender {:fname "logs/debug-logs.txt"})}})
-  (timbre/info "start portal..."))
+  (timbre/info "start portal...")
+  (start-server-dev))
 
 (start)
 (stop-server-dev)

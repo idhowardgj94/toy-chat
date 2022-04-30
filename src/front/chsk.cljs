@@ -16,10 +16,9 @@
 
 (defn ->output
   [msg]
-  (let [t (.-name msg)]
-    (.log js/console "try to see the msg.name: " t ", " (type t))
-    (-> (.querySelector js/document "#message-area")
-        (.insertAdjacentHTML  "beforeend" (str "<li>" t "</li>")))))
+  (.log js/console "Debug:" (str msg))
+  (-> (.querySelector js/document "#message-area")
+      (.insertAdjacentHTML  "beforeend" (str "<li>" (str msg) "</li>"))))
 ;; define event-msg-handler.
 
 (defmulti -event-msg-handler
@@ -27,13 +26,13 @@
   :id ; Dispatch on event-id
   )
 (defmethod -event-msg-handler :default
-  [{:as ev-msg :keys [ id]}]
-  (->output id))
+  [{:as ev-msg :keys [ id ?data]}]
+  (->output ?data))
 
 (defn event-msg-handler
   "Wraps `-event-msg-handler` with logging, error catching, etc."
   [{:as ev-msg :keys [id ?data event]}]
-  (.log js/console "received event, id: " id ", data: " ?data ", event: " event)
+  (.log js/console "received event, id: " (str id) ", data: " (str ?data) ", event: " (str event))
   (-event-msg-handler ev-msg))
 
 
