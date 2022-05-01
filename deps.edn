@@ -1,5 +1,5 @@
 
-{:paths ["src"  "static" "resources"]
+{:paths ["src"  "static" "resources" "dev/src"]
  :deps {org.clojure/clojure {:mvn/version "1.10.3"}
         stylefruits/gniazdo {:mvn/version "1.2.0"}
         ring/ring-core {:mvn/version "1.9.5"}
@@ -14,7 +14,8 @@
         com.taoensso/timbre {:mvn/version "5.2.1"}
         rum/rum {:mvn/version "0.12.9"}
         com.taoensso/encore {:mvn/version "3.21.0"}
-        cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}}
+        cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}
+        integrant/integrant {:mvn/version "0.8.0"}}
  :aliases
  {:watch-dev {:extra-deps {io.github.stuarthalloway/reflector
                            {:git/url "https://github.com/stuarthalloway/reflector"
@@ -24,7 +25,6 @@
                            org.clojure/tools.deps.alpha ; add-lib3 branch
                            {:git/url "https://github.com/clojure/tools.deps.alpha"
                             :sha "83a477b305839c697666401508c395cfed29506a"}}
-              :ns-default dev.main
               :exec-fn start-server-dev}
   :shadow-cljs {:extra-deps {thheller/shadow-cljs {:mvn/version "2.18.0"}
                              io.github.stuarthalloway/reflector
@@ -35,6 +35,7 @@
                              org.clojure/tools.deps.alpha ; add-lib3 branch
                              {:git/url "https://github.com/clojure/tools.deps.alpha"
                               :sha "83a477b305839c697666401508c395cfed29506a"}}
+                :extra-paths ["dev/src" "src"]
                 :main-opts ["-m" "shadow.cljs.devtools.cli"]}
   :run-m {:main-opts ["-m" "com.chatapp"]}
   :build {:deps {io.github.seancorfield/build-clj
@@ -51,12 +52,4 @@
 #_(require '[clojure.tools.deps.alpha.repl :refer [add-libs]])
 #_(comment
     (add-libs '{cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}})
-    (add-libs '{hiccup/hiccup {:mvn/version "1.0.5"}})
-    (add-libs '{rum/rum {:mvn/version "0.12.9"}})
-    (add-libs '{com.taoensso/timbre {:mvn/version "5.2.1"}})
-    (add-libs '{com.taoensso/sente {:mvn/version "1.16.2"}})
-    (add-libs '{ring/ring-json {:mvn/version "0.5.1"}})
-    (add-libs '{hiccup/hiccup {:mvn/version "2.0.0-alpha2"}})
-    (add-libs '{http-kit/http-kit {:mvn/version "2.5.3"}})
-    (add-libs '{ring/ring-devel {:mvn/version "1.9.5"}})
     )

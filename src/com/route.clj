@@ -111,7 +111,7 @@
 
 (defn index
   [_]
-  (-> (res/response {:status "hello, world"})
+  (-> (res/response {:status "hello, world, hello, howard"})
       content-type-json))
 
 (defn test-rum

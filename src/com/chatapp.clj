@@ -29,7 +29,7 @@
   (if (not (nil? @server-state))
     (when-let [server @server-state]
       (timbre/info "stop server")(
-      (@server-state)
+      (server)
       (reset! server-state nil))
     (timbre/info "server not start yet"))))
 
