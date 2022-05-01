@@ -13,7 +13,8 @@
         thheller/shadow-cljs {:mvn/version "2.18.0"}
         com.taoensso/timbre {:mvn/version "5.2.1"}
         rum/rum {:mvn/version "0.12.9"}
-        com.taoensso/encore {:mvn/version "3.21.0"}}
+        com.taoensso/encore {:mvn/version "3.21.0"}
+        cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}}
  :aliases
  {:watch-dev {:extra-deps {io.github.stuarthalloway/reflector
                            {:git/url "https://github.com/stuarthalloway/reflector"
@@ -49,7 +50,8 @@
 
 #_(require '[clojure.tools.deps.alpha.repl :refer [add-libs]])
 #_(comment
-    (add-libs '{hiccup/hiccup {:num/version "1.0.5"}})
+    (add-libs '{cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}})
+    (add-libs '{hiccup/hiccup {:mvn/version "1.0.5"}})
     (add-libs '{rum/rum {:mvn/version "0.12.9"}})
     (add-libs '{com.taoensso/timbre {:mvn/version "5.2.1"}})
     (add-libs '{com.taoensso/sente {:mvn/version "1.16.2"}})

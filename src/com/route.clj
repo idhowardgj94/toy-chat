@@ -1,5 +1,5 @@
 (ns com.route (:require
-               [com.htmlUtil :refer [content-type-json page]]
+               [com.html-util :refer [content-type-json page]]
                [compojure.core :refer [GET POST defroutes]]
                [compojure.route :as route]
                [rum.core :as rum]
@@ -7,7 +7,7 @@
                [taoensso.sente :as sente]
                [taoensso.timbre :as timbre]
                [taoensso.sente.server-adapters.http-kit      :refer (get-sch-adapter)]
-               [clojure.core.async :as async  :refer (<! <!! >! >!! put! chan go go-loop)]))
+               [clojure.core.async :as async  :refer (<! <!! >! >!! put! chan go go-loop, put!)]))
 
 
 ;; try sente
@@ -104,7 +104,9 @@
 (comment
  (reset! broad (start-example-broadcaster!)) 
   (print @broad)
+  (put! @broad true)
   (async/close! @broad)
+
  ,)
 
 (defn index

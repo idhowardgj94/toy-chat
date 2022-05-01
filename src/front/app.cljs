@@ -1,4 +1,5 @@
 (ns front.app (:require [rum.core :as rum]
+                        [ajax.core :refer [GET POST]]
                         [front.chsk :refer [start!]]
                         [taoensso.timbre :as timbre :refer-macros (tracef debugf infof warnf errorf)])); <--- Add this))
 
@@ -16,8 +17,9 @@
 
 (defn did-mount-app
   []
-  (.log js/console "app mount! will start chsk router....")
-  (start!)
+  ;; TODO: comment out after finish 
+  ;; (.log js/console "app mount! will start chsk router....")
+  ;; (start!)
   (.log js/console "start chsk..."))
 
 (rum/defc app < rum/reactive
@@ -31,3 +33,10 @@
     {:on-click button-onclick-handler} "click me to add count"]]
   )
 
+
+#_(require '[clojure.tools.deps.alpha.repl :refer [add-libs]])
+#_(comment
+    (print "hello")
+    (require '[ajax.core :refer [GET POST]])
+    (GET "https://catfact.ninja/fact")
+    )

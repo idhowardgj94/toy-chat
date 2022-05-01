@@ -1,4 +1,4 @@
-(ns com.htmlUtil)
+(ns com.html-util)
 
 (defn content-type-json
   "response as json type"
