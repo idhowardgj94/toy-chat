@@ -22,9 +22,8 @@
   (def connected-uids                connected-uids) ; Watchable, read-only atom
   )
 
-(comment 
-  (print @connected-uids)
-  ,)
+(comment
+  (print @connected-uids))
 ;; can add-watch to check connecteduids change (it is a atom) ^^
 (add-watch connected-uids :connected-uids
            (fn [_ _ old new]
@@ -101,17 +100,9 @@
 
 (def broad (atom nil))
 
-(comment
- (reset! broad (start-example-broadcaster!)) 
-  (print @broad)
-  (put! @broad true)
-  (async/close! @broad)
-
- ,)
-
 (defn index
   [_]
-  (-> (res/response {:status "hello, world, hello, howard"})
+  (-> (res/response {:status "hello, world!!!"})
       content-type-json))
 
 (defn test-rum
@@ -122,5 +113,18 @@
   (GET "/" [] index)
   (GET  "/chsk" req (ring-ajax-get-or-ws-handshake req))
   (POST "/chsk" req (ring-ajax-post                req))
-  (GET "/testRum" [] test-rum)
-  (route/not-found "Not Found"))
+  (GET "/testRum" [] test-rum))
+
+(defn auth-helloworld
+  [req]
+  (timbre/info "hello, world")
+  "hello, world")
+
+(defroutes auth-routes
+  (GET "/auth/helloworld" [req] (auth-helloworld req)))
+
+#_(comment
+  (reset! broad (start-example-broadcaster!))
+  (print @broad)
+  (put! @broad true)
+  (async/close! @broad))
