@@ -98,8 +98,6 @@
       (when @broadcast-enabled?_ (broadcast! i))
       (recur (inc i)))))
 
-(def broad (atom nil))
-
 (defn index
   [_]
   (-> (res/response {:status "hello, world!!!"})
@@ -116,9 +114,11 @@
   (GET "/testRum" [] test-rum))
 
 (defn auth-helloworld
-  [req]
-  (timbre/info "hello, world")
-  "hello, world")
+  [request]
+  (timbre/info "inside auth-helloworld")
+  (if (:identity request)
+    "hello"
+    "world"))
 
 (defroutes auth-routes
   (GET "/auth/helloworld" [req] (auth-helloworld req)))

@@ -7,23 +7,32 @@
                  [compojure.core :refer [routes wrap-routes]]
                  [compojure.route :as route]
                  [com.route :refer [app-routes auth-routes]]
-                 
+                 [buddy.auth.middleware :refer [wrap-authentication]]
+                 [buddy.auth.backends :as backends]
                  [taoensso.timbre :as timbre])
     (:use [org.httpkit.server]))
 
+(defn my-authfn
+  [request authdata]
+  (let [username (:username authdata)
+        password (:password authdata)]
+    (timbre/info "myauth")
+    username))
 
+(def backend (backends/basic {:realm "MyApi"
+                              :authfn my-authfn}))
 
-;; TODO: router to dispatch event
-;; https://github.com/ptaoussanis/sente/blob/master/example-project/src/example/server.clj
-(defonce server-state (atom nil))
 
 (defn setup-routes
   "setting up route"
   []
   (routes
    #'app-routes
-   #'auth-routes
+   (-> #'auth-routes
+       (wrap-authentication backend))
    (route/not-found "Not Found")))
+
+(defonce server-state (atom nil))
 (defn start-server
   ([]
    (start-server false))
