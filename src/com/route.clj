@@ -1,9 +1,12 @@
 (ns com.route (:require
                [com.html-util :refer [content-type-json page]]
-               [compojure.core :refer [GET POST defroutes]]
+               [compojure.core :refer [GET POST defroutes routes wrap-routes]]
                [compojure.route :as route]
+               [buddy.auth.middleware :refer [wrap-authentication]]
                [rum.core :as rum]
                [ring.util.response :as res]
+               [com.auth :refer [backend]]
+               [buddy.auth :refer [authenticated? throw-unauthorized]]
                [taoensso.sente :as sente]
                [taoensso.timbre :as timbre]
                [taoensso.sente.server-adapters.http-kit      :refer (get-sch-adapter)]
@@ -107,21 +110,31 @@
   [_]
   (rum/render-static-markup (page)))
 
+
 (defroutes app-routes
   (GET "/" [] index)
   (GET  "/chsk" req (ring-ajax-get-or-ws-handshake req))
   (POST "/chsk" req (ring-ajax-post                req))
-  (GET "/testRum" [] test-rum))
+  (GET "/main" [] test-rum))
 
 (defn auth-helloworld
   [request]
   (timbre/info "inside auth-helloworld")
-  (if (:identity request)
-    "hello"
+  (if-not (authenticated? request)
+    "hellooeuoeu"
     "world"))
 
 (defroutes auth-routes
-  (GET "/auth/helloworld" [req] (auth-helloworld req)))
+  (GET "/auth/helloworld" [] auth-helloworld ))
+
+(defn setup-routes
+  "setting up route"
+  []
+  (routes
+   #'app-routes
+   (-> #'auth-routes
+       (wrap-routes wrap-authentication #'backend))
+   (route/not-found "Not Found")))
 
 #_(comment
   (reset! broad (start-example-broadcaster!))

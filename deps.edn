@@ -13,6 +13,7 @@
         thheller/shadow-cljs {:mvn/version "2.18.0"}
         com.taoensso/timbre {:mvn/version "5.2.1"}
         rum/rum {:mvn/version "0.12.9"}
+        metosin/reitit {:mvn/version "0.5.18"}
         com.taoensso/encore {:mvn/version "3.21.0"}
         cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}
         buddy/buddy-auth {:mvn/version "3.0.323"}
@@ -53,5 +54,6 @@
 #_(require '[clojure.tools.deps.alpha.repl :refer [add-libs]])
 #_(comment
     (add-libs '{buddy/buddy-auth {:mvn/version "3.0.323"}})
+    (add-libs '{metosin/reitit {:mvn/version "0.5.18"}}) 
     (add-libs '{cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}})
     )

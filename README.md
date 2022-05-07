@@ -5,8 +5,8 @@ todo that i can think of right now...
 
 -[ ] (medium)choose a database and setup with pooling... (postgres sql, [hiraki-cp](https://github.com/tomekw/hikari-cp))
 -[ ] (high) frontend route ([reitit](https://github.com/metosin/reitit))
--[ ] (high) authencation / authorization [buddy-auth](https://github.com/funcool/buddy-auth)
--[X] (low) refactor code, data driven framework ([integrant](https://github.com/weavejester/integrant), [dev system architecture](https://cognitect.com/blog/2013/06/04/clojure-workflow-reloaded))
+-[X] (high) authencation / authorization [buddy-auth](https://github.com/funcool/buddy-auth)
+-[X] (low) refactor code, data  driven framework ([integrant](https://github.com/weavejester/integrant), [dev system architecture](https://cognitect.com/blog/2013/06/04/clojure-workflow-reloaded))
 
 FIXME: my new application.
 
