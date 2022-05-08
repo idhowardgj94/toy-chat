@@ -1,0 +1,22 @@
+.img-in {
+  object-fit: contain;
+  height: auto;
+  width: 100%;
+}
+
+.navigator {
+  flex: 4;
+  max-width: 350px;
+}
+
+.room {
+  flex: 6;
+}
+
+.friend-item-card {
+  height: 75px;
+}
+
+.search-bar {
+  height: 30px;
+}
