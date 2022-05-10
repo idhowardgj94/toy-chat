@@ -4,3 +4,19 @@
 .header {
   height: 50px; 
 }
+
+.message-toolbox {
+  height: 100px;
+}
+
+.message-container {
+  height:calc(100vh - 150px);
+}
+.to-right {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.full-height {
+  height: 100vh;
+}
