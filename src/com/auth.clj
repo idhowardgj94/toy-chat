@@ -1,7 +1,6 @@
 (ns com.auth (:require
               [buddy.auth.backends :as backends]
-              [taoensso.timbre :as timbre]
-              [buddy.auth :refer [authenticated? throw-unauthorized]]))
+              [taoensso.timbre :as timbre]))
 
 (defonce mockAuthData {:username "howard" :password "eva1219"})
 

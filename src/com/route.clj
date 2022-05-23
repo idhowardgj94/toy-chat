@@ -6,11 +6,11 @@
                [rum.core :as rum]
                [ring.util.response :as res]
                [com.auth :refer [backend]]
-               [buddy.auth :refer [authenticated? throw-unauthorized]]
+               [buddy.auth :refer [authenticated?]]
                [taoensso.sente :as sente]
                [taoensso.timbre :as timbre]
                [taoensso.sente.server-adapters.http-kit      :refer (get-sch-adapter)]
-               [clojure.core.async :as async  :refer (<! <!! >! >!! put! chan go go-loop, put!)]))
+               [clojure.core.async :as async  :refer (<! go-loop)]))
 
 
 ;; try sente
@@ -119,13 +119,13 @@
 
 (defn auth-helloworld
   [request]
-  (timbre/info "inside auth-helloworld")
+  (timbre/info "inside auth-helloworld" request)
   (if-not (authenticated? request)
     "hellooeuoeu"
     "world"))
 
 (defroutes auth-routes
-  (GET "/auth/helloworld" [] auth-helloworld ))
+  (GET "/auth/helloworld" req (auth-helloworld req)) )
 
 (defn setup-routes
   "setting up route"
@@ -133,8 +133,9 @@
   (routes
    #'app-routes
    (-> #'auth-routes
-       (wrap-routes wrap-authentication #'backend))
+       (wrap-routes wrap-authentication backend))
    (route/not-found "Not Found")))
+
 
 #_(comment
   (reset! broad (start-example-broadcaster!))

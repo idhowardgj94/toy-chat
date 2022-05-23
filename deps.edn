@@ -22,12 +22,15 @@
  {:watch-dev {:extra-deps {io.github.stuarthalloway/reflector
                            {:git/url "https://github.com/stuarthalloway/reflector"
                             :sha "93a0c19b4526c1180959e940202928d35e5c3cef"}
-                           djblue/portal {:mvn/version "RELEASE"}
+                     ;;       djblue/portal {:mvn/version "RELEASE"}
+                           nrepl/nrepl {:mvn/version "0.9.0"}
                            ring/ring-devel {:mvn/version "1.9.5"}
                            org.clojure/tools.deps.alpha ; add-lib3 branch
                            {:git/url "https://github.com/clojure/tools.deps.alpha"
                             :sha "83a477b305839c697666401508c395cfed29506a"}}
-              :exec-fn start-server-dev}
+              :extra-paths ["dev/src" "src"]
+              :ns-default dev.user
+              :main-opts ["-m" "nrepl.cmdline"]}
   :shadow-cljs {:extra-deps {thheller/shadow-cljs {:mvn/version "2.18.0"}
                              io.github.stuarthalloway/reflector
                              {:git/url "https://github.com/stuarthalloway/reflector"

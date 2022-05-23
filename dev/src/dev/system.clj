@@ -2,8 +2,11 @@
                          [taoensso.timbre.appenders.core :as appenders]
                          [integrant.core :as ig]
                          [taoensso.timbre :as timbre]
-                         [dev.integrant.config :refer [config]]))
+                         [dev.integrant.configs.server :refer [server-config]]
+                         [dev.integrant.configs.db :refer [db-config]]))
 
+(defonce config (merge server-config db-config))
+(print config)
 (def system (atom nil))
 (defn start-system
   []

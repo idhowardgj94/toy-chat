@@ -1,13 +1,13 @@
 (ns com.chatapp (:require
                  [org.httpkit.server :refer [run-server]]
-                 [ring.middleware.defaults :refer :all]
                  [ring.middleware.json :refer [wrap-json-body
                                                wrap-json-response]]
                  [ring.middleware.reload :refer [wrap-reload]]
                  [com.route :refer [setup-routes]]
                  [taoensso.timbre :as timbre])
-    (:use [org.httpkit.server]))
-
+    #_{:clj-kondo/ignore [:use]}
+    (:use [org.httpkit.server]
+          [ring.middleware.defaults]))
 
 
 (defonce server-state (atom nil))
