@@ -2,8 +2,12 @@
                                 "bases/cli/src"
                                 "bases/cli/resources"
                                 "components/greeter/src"
-                                "components/greeter/resources"]
-                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.3"}}}
+                                "components/greeter/resources"
+                                "components/publisher/src"
+                                "components/publisher/resources"]
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.3"}
+                               org.clojure/tools.deps.alpha {:git/url "https://github.com/clojure/tools.deps.alpha"
+                                                             :sha "8f8fc2571e721301b6d52e191129248355cb8c5a"}}}
 
             :test {:extra-paths ["bases/cli/test"
                                  "components/greeter/test"
